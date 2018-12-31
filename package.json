@@ -1,0 +1,26 @@
+{
+  "name": "dontforgettopayellyn",
+  "version": "9000.0.0",
+  "description": "Ride tracker so I know how much to pay somebody after the ride",
+  "main": "bundle.js",
+  "scripts": {
+    "test": "node src/js/base.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tbaumer22/dontforgettopayellyn.git"
+  },
+  "author": "Tate Berenbaum",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tbaumer22/dontforgettopayellyn/issues"
+  },
+  "homepage": "https://github.com/tbaumer22/dontforgettopayellyn#readme",
+  "dependencies": {
+    "browserify": "^16.2.3",
+    "cheerio": "^1.0.0-rc.2",
+    "js-cookie": "^2.2.0",
+    "moment": "^2.23.0",
+    "timer": "0.0.2"
+  }
+}

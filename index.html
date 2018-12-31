@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>Don't forget to pay Ellyn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+    <link rel="stylesheet" href="static/css/styles.css">
+    <script defer src="./static/js/fontawesome.js"></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css' rel='stylesheet' />
+</head>
+<body>
+<section class="hero is-dark is-bold is-fullheight">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">Payment Calculator for Rides</h1>
+            <h2 class="subtitle is-4">Select car <sub>(MPG matters)</sub></h2>
+            <div id="car-select" class="select is-success is-rounded is-medium is-fullwidth">
+                <select id="car-select-elem">
+                    <option value="11">Carson's Car</option>
+                    <option value="22">Ellyn's Car</option>
+                </select>
+            </div>
+            <div style="margin-bottom: 30px;"></div>
+            <center>
+                <button id="start-button" class="button is-success is-rounded is-medium">Start ride</button>
+            </center>
+            <hr id="divider" class="divider" style="margin-bottom: 20px;" />
+            <div class="columns">
+                <div class="column panel">
+                    <h1 class="title is-4 has-text-dark">Ride Stats</h1>
+                    <p class="subtitle is-5 has-text-dark" id="time"><b>Ride duration:</b> 0s</p>
+                    <p class="subtitle is-5 has-text-dark" id="distance-travelled"><b>Distance travelled:</b> 0mi</p>
+                    <p class="subtitle is-5 has-text-dark" id="fuel-price"><b>Current fuel price:</b> TBD</p>
+                    <hr class="divider" />
+                    <p class="subtitle is-5 has-text-dark" id="amount-owed"><b>Amount owed:</b> </p>
+                </div>
+                <div class="column panel" id="map"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js'></script>
+<script type="text/javascript" src="bundle.js"></script>
+</body>
+</html>
