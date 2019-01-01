@@ -1,5 +1,4 @@
 const Cookies = require("js-cookie");
-const moment = require("moment");
 const cheerio = require("cheerio");
 
 let cars = [
@@ -29,7 +28,7 @@ let locationTracking;
 
 function getLocation() {
     let x = document.getElementById("demo");
-    if (navigator.geolocation) {
+    if (navigator && navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(pos) {
             position = {
                 posx: pos.coords.latitude,
@@ -48,6 +47,11 @@ function getLocation() {
             if (started) {
                 recordAndCalculate(pos.coords.latitude, pos.coords.longitude);
             }
+        }, function(error) {
+            console.log(error);
+        }, {
+            enableHighAccuracy: true,
+            maximumAge: 500
         });
     } else {
         x.innerHTML = "Geolocation is not supported by this browser.";
