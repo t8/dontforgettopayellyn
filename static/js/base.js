@@ -1,7 +1,7 @@
 const Cookies = require("js-cookie");
 const cheerio = require("cheerio");
 
-let cars = [
+let cars = [               // This var not used - instead, for readability
     carson = {
         mpg: 11
     },
@@ -27,35 +27,43 @@ let counting;
 let locationTracking;
 
 function getLocation() {
-    let x = document.getElementById("demo");
     if (navigator && navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(pos) {
-            position = {
-                posx: pos.coords.latitude,
-                posy: pos.coords.longitude
-            };
-            mapboxgl.accessToken = 'pk.eyJ1IjoidGJhdW1lcjIyIiwiYSI6ImNqcTA5Zm84YjAzaGk0OHF1ZXc0MzAza2UifQ.EPYjLIhlhHwnN-OJN6AZQg';
-            const map = new mapboxgl.Map({
-                container: 'map',
-                style: 'mapbox://styles/tbaumer22/cjq09i6410gc12rpiyl1kgbaj',
-                center: [pos.coords.longitude, pos.coords.latitude],
-                zoom: 15.0
-            });
-            let marker = new mapboxgl.Marker()
-                .setLngLat([pos.coords.longitude, pos.coords.latitude])
-                .addTo(map);
-            if (started) {
-                recordAndCalculate(pos.coords.latitude, pos.coords.longitude);
-            }
+        navigator.geolocation.getCurrentPosition(function(position) {
+            locationSuccess(position);
         }, function(error) {
-            console.log(error);
+            locationError(error);
         }, {
             enableHighAccuracy: true,
-            maximumAge: 500
+            maximumAge: 3000,
+            timeout: 10000
         });
     } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
+        console.log("Geolocation is not supported by this browser.");
     }
+}
+
+function locationSuccess(pos) {
+    position = {
+        posx: pos.coords.latitude,
+        posy: pos.coords.longitude
+    };
+    mapboxgl.accessToken = 'pk.eyJ1IjoidGJhdW1lcjIyIiwiYSI6ImNqcTA5Zm84YjAzaGk0OHF1ZXc0MzAza2UifQ.EPYjLIhlhHwnN-OJN6AZQg';
+    const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/tbaumer22/cjq09i6410gc12rpiyl1kgbaj',
+        center: [pos.coords.longitude, pos.coords.latitude],
+        zoom: 15.0
+    });
+    let marker = new mapboxgl.Marker()
+        .setLngLat([pos.coords.longitude, pos.coords.latitude])
+        .addTo(map);
+    if (started) {
+        recordAndCalculate(pos.coords.latitude, pos.coords.longitude);
+    }
+}
+
+function locationError(error) {
+    console.log(error);
 }
 
 function grabGasPrice() {
@@ -132,12 +140,12 @@ function recordAndCalculate(newx, newy) {
 
     let distance = getDistanceFromLatLonInKm(oldx, oldy, newx, newy);
     distance = distance * 0.621371;   // KM to MI
-    console.log("Distance: " + distance);
+    // console.log("Distance: " + distance);
     oldDis += distance;
 
     // (Distance / MPG) * Gas Price = Cost of ride
     let costOfRide = (distance / parseFloat(selected.value)) * gasPrice;
-    console.log("Cost of Ride: $" + costOfRide);
+    // console.log("Cost of Ride: $" + costOfRide);
     oldRideCost += costOfRide;
 
     // Updating UI
