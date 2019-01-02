@@ -1,6 +1,8 @@
 const Cookies = require("js-cookie");
 const cheerio = require("cheerio");
 
+let initialLoaded = false;
+
 let cars = [               // This var not used - instead, for readability
     carson = {
         mpg: 11
@@ -60,6 +62,14 @@ function locationSuccess(pos) {
     if (started) {
         recordAndCalculate(pos.coords.latitude, pos.coords.longitude);
     }
+    if (!initialLoaded) {
+        initialLoaded = true;
+        let loadingHero = document.getElementById("loading-hero");
+        loadingHero.classList.add("hide-opacity");
+        setTimeout(function () {
+            loadingHero.style.display = "none";
+        }, 1000);
+    }
 }
 
 function locationError(error) {
@@ -79,7 +89,7 @@ function grabGasPrice() {
                 document.getElementById("fuel-price").innerText = "Fuel price could not be determined";
                 Cookies.set('gas-price', 2.00);
             } else {
-                document.getElementById("fuel-price").innerText = "Current fuel price: $" + price;
+                document.getElementById("fuel-price").innerHTML = "<b>Current fuel price:</b> $" + price;
                 Cookies.set('gas-price', price);
             }
         }
@@ -97,16 +107,23 @@ document.getElementById("start-button").onclick = function() {
     toggleStart();
 };
 
+document.getElementById("permission-button").onclick = function () {
+    this.innerText = "";
+    getLocation();
+};
+
 function toggleStart() {
     let startButton = document.getElementById("start-button");
     let divider = document.getElementById("divider");
+    let divider2 = document.getElementById("divider2");
     let carSelect = document.getElementById("car-select");
-    let carSelectElem = document.getElementById("car-select");
+    let carSelectElem = document.getElementById("car-select-elem");
     if (started) {
         startButton.innerHTML = "Start ride";
         startButton.classList.remove("is-danger");
         startButton.classList.add("is-success");
         divider.style.background = "#1BD160";
+        divider2.style.background = "#1BD160";
         carSelect.classList.remove("is-danger");
         carSelect.classList.add("is-success");
         carSelectElem.disabled = false;
@@ -119,6 +136,7 @@ function toggleStart() {
         startButton.classList.remove("is-success");
         startButton.classList.add("is-danger");
         divider.style.background = "#FF375F";
+        divider2.style.background = "#FF375F";
         carSelect.classList.remove("is-success");
         carSelect.classList.add("is-danger");
         carSelectElem.disabled = true;
@@ -150,7 +168,7 @@ function recordAndCalculate(newx, newy) {
 
     // Updating UI
     distElem.innerHTML = "<b>Distance travelled:</b> " + oldDis.toFixed(4) + "mi";
-    owedElem.innerHTML = "<b>Amount Owed:</b> $" + oldRideCost.toFixed(2);
+    owedElem.innerHTML = "<b>Ride cost:</b> $" + oldRideCost.toFixed(2);
 
     Cookies.set('start-pos-x', newx);
     Cookies.set('start-pos-y', newy);
@@ -207,6 +225,6 @@ function endRide() {
     started = false;
 }
 
-getLocation();
+//getLocation();
 grabGasPrice();
 // console.log(getDistanceFromLatLonInKm(37.3097184, -80.0621986, 36.3097184, -81.0621986));
