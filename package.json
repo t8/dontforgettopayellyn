@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/tbaumer22/dontforgettopayellyn#readme",
   "dependencies": {
+    "body-scroll-lock": "^2.6.1",
     "browserify": "^16.2.3",
     "cheerio": "^1.0.0-rc.2",
     "js-cookie": "^2.2.0",

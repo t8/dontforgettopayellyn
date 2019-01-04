@@ -1,6 +1,10 @@
 const Cookies = require("js-cookie");
 const cheerio = require("cheerio");
+const bodyScrollLock = require('body-scroll-lock');
 
+let body = document.getElementById("body");
+const disableBodyScroll = bodyScrollLock.disableBodyScroll;
+const enableBodyScroll = bodyScrollLock.enableBodyScroll;
 let initialLoaded = false;
 
 let cars = [               // This var not used - instead, for readability
@@ -64,6 +68,7 @@ function locationSuccess(pos) {
     }
     if (!initialLoaded) {
         initialLoaded = true;
+        enableBodyScroll(body);
         let loadingHero = document.getElementById("loading-hero");
         loadingHero.classList.add("hide-opacity");
         setTimeout(function () {
@@ -198,7 +203,7 @@ function deg2rad(deg) {
 function counter() {
     seconds++;
     let newTime = fancyTimeFormat(seconds);
-    timeBox.innerHTML = "<b>Ride Duration:</b> " + newTime;
+    timeBox.innerHTML = "<b>Ride duration:</b> " + newTime;
 }
 
 // Thanks to: https://stackoverflow.com/a/11486026/10350213
@@ -226,5 +231,6 @@ function endRide() {
 }
 
 //getLocation();
+disableBodyScroll(body);
 grabGasPrice();
 // console.log(getDistanceFromLatLonInKm(37.3097184, -80.0621986, 36.3097184, -81.0621986));
