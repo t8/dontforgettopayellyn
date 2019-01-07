@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <title>Don't forget to pay Ellyn</title>
+    <link rel="icon" type="image/png" href="./static/images/jb.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
     <link rel="stylesheet" href="static/css/styles.css">
     <script defer src="./static/js/fontawesome.js"></script>
@@ -17,7 +18,8 @@
             <h2 class="subtitle is-4">Select car <sub>(MPG matters)</sub></h2>
             <div id="car-select" class="select is-success is-rounded is-medium is-fullwidth">
                 <select id="car-select-elem">
-                    <option value="11">Carson's Car</option>
+                    <option value="11">Ben's Car</option>
+                    <option value="11" selected>Carson's Car</option>
                     <option value="11">Charlie's Car</option>
                     <option value="22">Ellyn's Car</option>
                     <option value="11">Maya's Car</option>
@@ -42,6 +44,13 @@
         </div>
     </div>
 </section>
+<footer class="footer is-light">
+    <div class="content has-text-centered">
+        <p>
+            <a href="https://github.com/tbaumer22/dontforgettopayellyn" class="has-text-success"><i class="fab fa-github"></i>&nbsp;&nbsp;See the code</a>
+        </p>
+    </div>
+</footer>
 <section class="hero is-dark is-bold" id="loading-hero">
     <div class="hero-body">
         <div class="top">
@@ -96,7 +105,6 @@
         <a class="title is-6 is-success has-text-centered" id="permission-button">I allow my location to be tracked here</a>
     </div>
 </section>
-
 <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js'></script>
 <script type="text/javascript" src="bundle.js"></script>
 </body>
